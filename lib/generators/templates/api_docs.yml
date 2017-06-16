@@ -1,0 +1,162 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Supermarket API
+  description: Move your app forward with the Supermarket API
+  version: "1.0.0"
+# the domain of the service
+host: api.supermarket.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /products:
+    get:
+      summary: Product Types
+      description: |
+        The Products endpoint returns information about the *Uber* products
+        offered at a given location. The response includes the display name
+        and other details about each product, and lists the products in the
+        proper display order.
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+      tags:
+        - Products
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates Product
+      description: |
+        The Products endpoint creates a product.
+      parameters:
+        - name: product_id
+          in: body
+          description: Product ID
+          required: true
+          type: string
+        - name: name
+          in: body
+          description: Display Name
+          required: false
+          type: string
+      tags:
+        - Products
+      responses:
+        200:
+          description: A products
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /products/{id}:
+    patch:
+      summary: Updates a Product
+      description: |
+        The Products endpoint updates a product.
+      parameters:
+        - name: id
+          in: path
+          description: Product ID
+          required: true
+          type: number
+        - $ref: "#/parameters/ProductUpdate"
+      tags:
+        - Products
+      responses:
+        204:
+          description: A products
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Deletes a Product
+      description:
+        Deletes a single product identified by its id.
+      parameters:
+        - name: id
+          in: path
+          description: ID of product
+          required: true
+          type: number
+      tags:
+        - Employees
+      responses:
+        204:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+parameters:
+  ProductUpdate:
+    name: product
+    in: body
+    required: true
+    schema:
+      properties:
+        name:
+          type: string
+          description: Name of the product
+definitions:
+  Product:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      description:
+        type: string
+        description: Description of product.
+      name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

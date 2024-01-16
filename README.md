@@ -1,4 +1,6 @@
 # OpenAPIRest
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbizimply%2FOpenAPI-Rails-REST.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbizimply%2FOpenAPI-Rails-REST?ref=badge_shield)
+
 
 This gem aims to provide an easier way to implement REST api endpoints using OpenAPI specs in a Rails project.
 
@@ -139,3 +141,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/bizimp
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbizimply%2FOpenAPI-Rails-REST.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbizimply%2FOpenAPI-Rails-REST?ref=badge_large)
